@@ -17,24 +17,19 @@ Fine-tuning del modelo AASIST (Audio Anti-Spoofing using Integrated Spectro-Temp
 
 ## 📊 Resultados
 
-### Modelo Original (v1)
-
 | Métrica | Pre-entrenado | Fine-tuned | Mejora |
 |---------|---------------|------------|--------|
 | **Accuracy** | 69.44% | **100%** | +30.56% |
 | **AUC-ROC** | 0.28 | **1.0** | +0.72 |
 | **F1-Score** | - | **1.0** | - |
 
-### Validación con Datos Nuevos
+### Detección por Tipo de Audio
 
-| Tipo de Audio | Modelo v1 | Modelo v2 (Robusto) |
-|---------------|-----------|---------------------|
-| 🧑 Grabaciones directas | 80% (4/5) | 95-100% |
-| 🤖 ElevenLabs (voces nuevas) | **100%** (5/5) | **100%** |
-| � WhatsApp (threshold 50%) | 0% (0/6) | 70-80% |
-| 📱 WhatsApp (threshold 70%) | 83% (5/6) | 90-95% |
-
-**Nota**: Modelo v2 entrenado con 572 muestras (227 humanas + 345 TTS) incluyendo segmentos de podcast para mayor robustez contra audio comprimido.
+| Tipo de Audio | Precisión |
+|---------------|-----------|
+| 🧑 Voz Humana | 100% |
+| 🤖 ElevenLabs TTS | 100% |
+| 🔊 Linux espeak | 100% |
 
 ## 🚀 Inicio Rápido
 
@@ -112,67 +107,38 @@ spoofing-recognition/
 
 ## 🎓 Fine-Tuning
 
-### Opción 1: Re-entrenamiento Automatizado (Recomendado)
-
-Para mejorar la robustez del modelo con datos de podcast:
+### 1. Preparar Dataset
 
 ```bash
-# Script completamente automatizado
-./scripts/download_and_retrain.sh
-```
-
-Este script:
-1. 📥 Descarga podcast de YouTube
-2. ✂️ Segmenta en 150 clips de 3 segundos
-3. 🤖 Genera 200 muestras TTS
-4. 📝 Crea metadata combinada
-5. 🏋️ Re-entrena modelo por 20 épocas
-6. 💾 Guarda modelo mejorado en `models/aasist_v2_robust/`
-
-**Ver guía completa**: [QUICK_START_RETRAIN.md](QUICK_START_RETRAIN.md)
-
-### Opción 2: Manual Paso a Paso
-
-#### 1. Preparar Dataset
-
-```bash
-# Opción A: Segmentar podcast (datos reales con compresión)
-python src/data_collection/segment_podcast.py \
-    data/raw/podcast/podcast.mp3 \
-    --duration 3 \
-    --max_segments 150 \
-    --voice_ratio 0.7
-
-# Opción B: Generar TTS
+# Opción A: Generar muestras TTS
 python src/data_collection/generate_elevenlabs_samples.py
-# o
-python src/data_collection/generate_linux_tts_samples.py
+python src/data_collection/generate_linux_tts.py
 
-# Opción C: Grabar voz humana
+# Opción B: Grabar voz humana
 python src/data_collection/record_human_samples.py
 ```
 
-#### 2. Crear Metadata
+### 2. Crear Metadata
 
 ```bash
-python src/data_collection/create_metadata_csv.py --output data/metadata_extended.csv
+python src/data_collection/create_metadata_csv.py --output data/metadata_all.csv
 ```
 
-#### 3. Convertir Audio
+### 3. Convertir Audio
 
 ```bash
 python src/data_collection/convert_to_standard_format.py \
-    --csv data/metadata_extended.csv \
-    --output_dir data/processed_extended
+    --csv data/metadata_all.csv \
+    --output_dir data/processed
 ```
 
-#### 4. Fine-Tuning
+### 4. Fine-Tuning
 
 ```bash
 python src/training/train_aasist.py \
-    --csv data/metadata_extended.csv \
+    --csv data/metadata_processed.csv \
     --pretrained models/AASIST/models/weights/AASIST.pth \
-    --output_dir models/aasist_v2_robust \
+    --output_dir models/aasist_fine_tuned \
     --epochs 20 \
     --lr 0.001
 ```

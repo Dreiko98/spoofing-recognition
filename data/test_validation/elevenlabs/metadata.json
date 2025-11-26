@@ -1,0 +1,32 @@
+[
+  {
+    "filename": "elevenlabs_validation_01_bella.mp3",
+    "text": "Bienvenido al sistema de detección de deepfakes de audio",
+    "voice": "bella",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL"
+  },
+  {
+    "filename": "elevenlabs_validation_02_rachel.mp3",
+    "text": "Esta tecnología puede identificar voces sintéticas en tiempo real",
+    "voice": "rachel",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM"
+  },
+  {
+    "filename": "elevenlabs_validation_03_bella.mp3",
+    "text": "La seguridad de las comunicaciones es fundamental en la era digital",
+    "voice": "bella",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL"
+  },
+  {
+    "filename": "elevenlabs_validation_04_rachel.mp3",
+    "text": "Los asistentes virtuales utilizan síntesis de voz avanzada",
+    "voice": "rachel",
+    "voice_id": "21m00Tcm4TlvDq8ikWAM"
+  },
+  {
+    "filename": "elevenlabs_validation_05_bella.mp3",
+    "text": "La autenticación por voz está revolucionando la ciberseguridad",
+    "voice": "bella",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL"
+  }
+]
