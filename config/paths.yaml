@@ -1,0 +1,6 @@
+data_root: "data"
+metadata_all: "data/metadata/metadata_all.csv"
+processed_root: "data/processed/combined"
+
+pretrained_model: "models/checkpoints/aasist_pretrained_asvspoof2019.pth"
+fine_tuned_model: "models/checkpoints/aasist_ft_siri_eleven_v1.pth"

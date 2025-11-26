@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Datos y archivos grandes
+/data/raw/
+/data/processed/
+/data/realtime_samples/
+*.wav
+*.mp3
+*.flac
+
+# Modelos y checkpoints (muy grandes)
+/models/AASIST/
+/models/aasist_fine_tuned/
+*.pt
+*.pth
+*.ckpt
+*.pkl
+
+# Mantener estructura de carpetas
+!data/.gitkeep
+!models/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs y temporales
+*.log
+*.tmp
+batch_results_*.json
+
+# CSV con paths locales (regenerables)
+data/metadata_*.csv

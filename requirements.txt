@@ -1,0 +1,12 @@
+# Core dependencies
+torch
+numpy
+pandas
+soundfile
+librosa
+pyyaml
+tqdm
+
+# Data collection (optional)
+# elevenlabs  # for ElevenLabs TTS (requires API key)
+# sounddevice  # for recording human samples
